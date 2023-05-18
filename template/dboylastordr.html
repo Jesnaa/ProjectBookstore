@@ -1,0 +1,84 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Content Wrapper START -->
+                <div class="main-content">
+                    {% include 'alert.html' %}
+
+  <script>
+      setTimeout(function(){
+        if ($('#msg').length > 0){
+          $('#msg').remove();
+          }
+        },4000)
+
+  </script>
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <h4>Delivery Boy Location Based on Last Order</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-overflow">
+                                            <table class="table table-lg table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Delivery Boy</th>
+                                                        <th>Location</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>
+                                                            <div >
+                                                                <div class="info">
+                                                                    <span class="title">{{user.first_name}}</span>
+<!--                                                                    <span class="sub-title">{{users.id}}</span>-->
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div >
+                                                                <span >{{last_order.user.hname}}(h),{{last_order.user.pincode}},{{last_order.user.city}},{{last_order.user.state}},{{last_order.user.country}}</span>
+                                                            </div>
+                                                        </td>
+
+<!--                                                        <td>-->
+<!--                                                            <div class="mrg-top-15">-->
+<!--                                                                <span>{{users.hname}}</span>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            <div class="mrg-top-15">-->
+<!--                                                                <b class="text-dark font-size-16">{{users.hname}},{{users.pincode}},{{users.city}},{{users.state}},{{users.country}}</b>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
+
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                              <div>
+                                 <div>
+                                    <div class="map" >
+                                        <div id="google-container"></div>
+                                     </div>
+                                 </div>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+{% endblock %}

@@ -1,0 +1,543 @@
+{% extends 'base1.html' %}
+{% load static %}
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+{% block content %}
+{% csrf_token %}
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li><a href="/">Home</a></li>
+							<li><a href="{% url 'allproduct' %}">All Categories</a></li>
+                            {% for i in result %}
+							<li><a href="#"></a>{{i.book_category}}</li>
+							<li class="active">{{i.ebook_name}}</li>
+
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- Product main img -->
+					<div class="col-md-4 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="{{i.img.url}}" alt="" >
+							</div>
+
+							
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-3 col-md-pull-5">
+<!--						<div id="product-imgs" class="slick-initialized slick-slider slick-vertical">-->
+						<div id="product-imgs" class="slick-initialized slick-slider">
+							<div class="product-preview" style="height: 400px;padding-left:30px; ">
+								<img src="{{i.img2.url}}" alt="" >
+							</div>
+
+<!--							<div class="product-preview">-->
+<!--								<img src="{% static 'images/book-1.png' %}" alt="">-->
+<!--							</div>-->
+
+							
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name">{{i.book_name}}</h2>
+							<h6 class="author-name">by {{i.book_author}} (Author)</h6>
+<!--							<div>-->
+<!--								<div class="product-rating">-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star"></i>-->
+<!--									<i class="fa fa-star-o"></i>-->
+<!--								</div>-->
+<!--								<a class="review-link" href="#">10 Review(s) | Add your review</a>-->
+<!--							</div>-->
+							<div>
+								<h3 class="product-price">₹{{i.book_price}}.00 <del class="product-old-price">₹{{i.book_oldprice}}.00 </del></h3>
+
+							</div>
+<!--							    <p>-->
+<!--								&#9830; Narrator         : {{i.narrator}} <br><br>-->
+<!--								&#9830; Listening Length : {{i.listening_length}} <br><br>-->
+<!--								</p>-->
+<!--							-->
+                                 <div id="tab" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<table style="width:60%">
+													<tr>	<td>&#9830; Narrator        </td>             <td>:{{i.narrator}}</td>		</tr>
+													<tr>	<td>&#9830; Listening Length</td>     <td>:{{i.listening_length}}</td>		</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+
+<!--							<p>-->
+<!--								&#9830; Pay on Delivery<br><br>-->
+<!--								&#9830; 10 Days Replacement Only<br><br>-->
+<!--								 </p>-->
+							    <br>
+                                <h4>Description</h4>
+								<p>{{i.book_desc}}</p>
+
+<!--							<div class="product-options">-->
+<!--								<label>-->
+<!--									Size-->
+<!--									<select class="input-select">-->
+<!--										<option value="0">X</option>-->
+<!--									</select>-->
+<!--								</label>-->
+<!--								<label>-->
+<!--									Color-->
+<!--									<select class="input-select">-->
+<!--										<option value="0">Red</option>-->
+<!--									</select>-->
+<!--								</label>-->
+<!--							</div>-->
+
+<!--							<div class="add-to-cart">-->
+<!--								<div class="qty-label">-->
+<!--									Qty-->
+<!--									<div class="input-number">-->
+<!--										<input type="number">-->
+<!--										<span class="qty-up">+</span>-->
+<!--										<span class="qty-down">-</span>-->
+<!--									</div>-->
+<!--								</div>-->
+
+
+<!--							</div>-->
+							<div class="add-to-cart">
+								        <button class="add-to-cart-btn" >  <a href="{{ i.book_pdf.url }}">Read</a></button>
+<!--                                          <button class="add-to-cart-btn" >  <a href="{% url 'pdf_to_audio' i.book_id%}">Audio</a></button>-->
+                                               <button class="add-to-cart-btn" >  <a href="{% url 'pdf_to_audio' i.book_id %}" >Audio</a></button>
+
+<!--                                                   <audio controls>-->
+<!--														<source src="{% url 'pdf_to_audio' i.book_id %}" type="audio/mpeg">-->
+<!--													</audio>-->
+<!--								                                   {% url 'pdf_to_audio' i.book_id%}-->
+								        <button class="add-to-cart-btn" ><a href="{{ i.book_pdf.url }}" download class="btn btn-outline-success">Download</a></button>
+								<button class="add-to-cart-btn" >  <a href="{{ i.book_flipbook }}">FlipBook</a></button>
+
+<!--								        <button class="add-to-cart-btn" >  <a href="{% url 'text_summarizer' %}">summary</a></button>-->
+
+
+									</div>
+<!--							<div class="add-to-cart">-->
+<!--									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a  href="{% url 'addcart' i.book_id %}">add to cart </a></button>-->
+<!--									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a  href="{% url 'add_wishlist' i.book_id %}">add to wishlist</a></button>-->
+<!--									</div>-->
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
+								<li><a data-toggle="tab" href="#tab2">Description</a></li>
+<!--								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>-->
+							</ul>
+							<!-- /product tab nav -->
+
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+                                           <table style="width:50%">
+											<tr>	<td>&#9830; Name</td>       <td>:{{i.ebook_name}}</td>		</tr>
+											<tr>	<td>&#9830; Author</td>     <td>:{{i.book_author}}</td>		</tr>
+											<tr>	<td>&#9830; Category</td>   <td>:{{i.book_category}}</td>	</tr>
+											<tr>	<td>&#9830; Year</td>       <td>:{{i.book_year}}</td>		</tr>
+											<tr>	<td>&#9830; Language</td>   <td>:{{i.book_language}}</td>	</tr>
+											<tr>	<td>&#9830; Publisher</td>  <td>:{{i.book_publisher}}</td>	</tr>
+											<tr>	<td>&#9830; Price</td>      <td>:₹{{i.book_price}}.00</td>	</tr>
+											   <tr>	<td>&#9830; Listening Length</td><td>:{{i.listening_length}}</td></tr>
+											<tr>	<td>&#9830; Narrator</td>   <td>:{{i.narrator}}</td>	</tr>
+											<tr>	<td>&#9830; AudibleRelease Date</td><td>:{{i.audibleRelease_date}}</td></tr>
+											<tr>	<td>&#9830; Book Type</td>      <td>:{{i.book_type}}</td>	</tr>
+                                           </table>
+										</div>
+									</div>
+								</div>
+
+									<!-- tab2  -->
+								<div id="tab2" class="tab-pane fade in ">
+									<div class="row">
+										<div class="col-md-12">
+											 <center><h3>{{i.ebook_name}}</h3></center>
+								             <p>{{i.book_desc}}</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- /tab2  -->
+
+								<!-- tab3  -->
+<!--								<div id="tab3" class="tab-pane fade in">-->
+<!--									<div class="row">-->
+<!--										&lt;!&ndash; Rating &ndash;&gt;-->
+<!--										<div class="col-md-3">-->
+<!--											<div id="rating">-->
+<!--												<div class="rating-avg">-->
+<!--													<span>4.5</span>-->
+<!--													<div class="rating-stars">-->
+<!--														<i class="fa fa-star"></i>-->
+<!--														<i class="fa fa-star"></i>-->
+<!--														<i class="fa fa-star"></i>-->
+<!--														<i class="fa fa-star"></i>-->
+<!--														<i class="fa fa-star-o"></i>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<ul class="rating">-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div style="width: 80%;"></div>-->
+<!--														</div>-->
+<!--														<span class="sum">3</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div style="width: 60%;"></div>-->
+<!--														</div>-->
+<!--														<span class="sum">2</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--												</ul>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										&lt;!&ndash; /Rating &ndash;&gt;-->
+
+<!--										&lt;!&ndash; Reviews &ndash;&gt;-->
+<!--										<div class="col-md-6">-->
+<!--											<div id="reviews">-->
+<!--												<ul class="reviews">-->
+<!--													<li>-->
+<!--														<div class="review-heading">-->
+<!--															<h5 class="name">John</h5>-->
+<!--															<p class="date">27 DEC 2018, 8:0 PM</p>-->
+<!--															<div class="review-rating">-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star-o empty"></i>-->
+<!--															</div>-->
+<!--														</div>-->
+<!--														<div class="review-body">-->
+<!--															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>-->
+<!--														</div>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="review-heading">-->
+<!--															<h5 class="name">John</h5>-->
+<!--															<p class="date">27 DEC 2018, 8:0 PM</p>-->
+<!--															<div class="review-rating">-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star-o empty"></i>-->
+<!--															</div>-->
+<!--														</div>-->
+<!--														<div class="review-body">-->
+<!--															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>-->
+<!--														</div>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="review-heading">-->
+<!--															<h5 class="name">John</h5>-->
+<!--															<p class="date">27 DEC 2018, 8:0 PM</p>-->
+<!--															<div class="review-rating">-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star"></i>-->
+<!--																<i class="fa fa-star-o empty"></i>-->
+<!--															</div>-->
+<!--														</div>-->
+<!--														<div class="review-body">-->
+<!--															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>-->
+<!--														</div>-->
+<!--													</li>-->
+<!--												</ul>-->
+<!--												<ul class="reviews-pagination">-->
+<!--													<li class="active">1</li>-->
+<!--													<li><a href="#">2</a></li>-->
+<!--													<li><a href="#">3</a></li>-->
+<!--													<li><a href="#">4</a></li>-->
+<!--													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+<!--												</ul>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										&lt;!&ndash; /Reviews &ndash;&gt;-->
+
+<!--										&lt;!&ndash; Review Form &ndash;&gt;-->
+<!--										<div class="col-md-3">-->
+<!--											<div id="review-form">-->
+<!--												<form class="review-form">-->
+<!--													<input class="input" type="text" placeholder="Your Name">-->
+<!--													<input class="input" type="email" placeholder="Your Email">-->
+<!--													<textarea class="input" placeholder="Your Review"></textarea>-->
+<!--													<div class="input-rating">-->
+<!--														<span>Your Rating: </span>-->
+<!--														<div class="stars">-->
+<!--															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>-->
+<!--															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>-->
+<!--															<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>-->
+<!--															<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>-->
+<!--															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>-->
+<!--														</div>-->
+<!--													</div>-->
+<!--													<button class="primary-btn">Submit</button>-->
+<!--												</form>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--										&lt;!&ndash; /Review Form &ndash;&gt;-->
+<!--									</div>-->
+<!--								</div>-->
+								<!-- /tab3  -->
+							</div>
+							{% endfor %}
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+<!--		<div class="section">-->
+<!--			&lt;!&ndash; container &ndash;&gt;-->
+<!--			<div class="container">-->
+<!--				&lt;!&ndash; row &ndash;&gt;-->
+<!--				<div class="row">-->
+
+<!--					<div class="col-md-12">-->
+<!--						<div class="section-title text-center">-->
+<!--							<h3 class="title">Related Products</h3>-->
+<!--						</div>-->
+<!--					</div>-->
+
+<!--					&lt;!&ndash; product &ndash;&gt;-->
+<!--           {% for p in products %}-->
+<!--					<div class="col-md-3 col-xs-6">-->
+<!--						<div class="product">-->
+<!--							<div class="product-img">-->
+<!--								<a href="{% url 'audiobook' p.book_id %}"><img src="{{p.img.url}}"  alt="" height="400"></a>-->
+<!--								<div class="product-label">-->
+<!--									<span class="sale">-30%</span>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="product-body">-->
+<!--								<p class="product-category">{{p.book_category}}</p>-->
+<!--								<h3 class="product-name"><a href="#">{{p.ebook_name}}</a></h3>-->
+<!--								<h4 class="product-price">₹{{p.book_price}}.00 <del class="product-old-price">₹{{p.book_oldprice}}.00</del></h4>-->
+<!--								<div class="product-rating">-->
+<!--								</div>-->
+<!--								<div class="product-btns">-->
+<!--									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"><a  href="{% url 'add_wishlist' p.book_id %}">add to wishlist</a></span></button>-->
+<!--									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>-->
+<!--									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="add-to-cart">-->
+<!--								<button class="add-to-cart-btn"><a  href="{% url 'addcart' p.book_id %}">  add to cart</a></button>-->
+<!--							</div>-->
+
+<!--						</div>-->
+<!--					</div>-->
+<!--					{% endfor %}-->
+
+<!--					&lt;!&ndash; /product &ndash;&gt;-->
+
+<!--&lt;!&ndash;					&lt;!&ndash; product &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;					<div class="col-md-3 col-xs-6">&ndash;&gt;-->
+<!--&lt;!&ndash;						<div class="product">&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-img">&ndash;&gt;-->
+<!--&lt;!&ndash;								<img src="./img/product02.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-label">&ndash;&gt;-->
+<!--&lt;!&ndash;									<span class="new">NEW</span>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-body">&ndash;&gt;-->
+<!--&lt;!&ndash;								<p class="product-category">Category</p>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h3 class="product-name"><a href="#">product name goes here</a></h3>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-rating">&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-btns">&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="add-to-cart">&ndash;&gt;-->
+<!--&lt;!&ndash;								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					&lt;!&ndash; /product &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;					<div class="clearfix visible-sm visible-xs"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;					&lt;!&ndash; product &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;					<div class="col-md-3 col-xs-6">&ndash;&gt;-->
+<!--&lt;!&ndash;						<div class="product">&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-img">&ndash;&gt;-->
+<!--&lt;!&ndash;								<img src="./img/product03.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-body">&ndash;&gt;-->
+<!--&lt;!&ndash;								<p class="product-category">Category</p>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h3 class="product-name"><a href="#">product name goes here</a></h3>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-rating">&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-star-o"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-btns">&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="add-to-cart">&ndash;&gt;-->
+<!--&lt;!&ndash;								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					&lt;!&ndash; /product &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;					&lt;!&ndash; product &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;					<div class="col-md-3 col-xs-6">&ndash;&gt;-->
+<!--&lt;!&ndash;						<div class="product">&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-img">&ndash;&gt;-->
+<!--&lt;!&ndash;								<img src="./img/product04.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="product-body">&ndash;&gt;-->
+<!--&lt;!&ndash;								<p class="product-category">Category</p>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h3 class="product-name"><a href="#">product name goes here</a></h3>&ndash;&gt;-->
+<!--&lt;!&ndash;								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-rating">&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;								<div class="product-btns">&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>&ndash;&gt;-->
+<!--&lt;!&ndash;								</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;							<div class="add-to-cart">&ndash;&gt;-->
+<!--&lt;!&ndash;								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>&ndash;&gt;-->
+<!--&lt;!&ndash;							</div>&ndash;&gt;-->
+<!--&lt;!&ndash;						</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					</div>&ndash;&gt;-->
+<!--&lt;!&ndash;					&lt;!&ndash; /product &ndash;&gt;&ndash;&gt;-->
+
+<!--				</div>-->
+<!--				&lt;!&ndash; /row &ndash;&gt;-->
+<!--			</div>-->
+<!--			&lt;!&ndash; /container &ndash;&gt;-->
+<!--		</div>-->
+		<!-- /Section -->
+
+
+{% endblock content %}

@@ -1,0 +1,429 @@
+{% extends 'base1.html' %}
+{% load static %}
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+
+{% block content %}
+{% csrf_token %}
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				{% include 'alert.html' %}
+								  <script>
+									  setTimeout(function(){
+										if ($('#msg').length > 0){
+										  $('#msg').remove();
+										  }
+										},2900)
+								  </script>
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li><a href="/">Home</a></li>
+							<li><a href="{% url 'allproduct' %}">All Categories</a></li>
+                            {% for i in result %}
+							<li><a href="#"></a>{{i.book_category}}</li>
+							<li class="active">{{i.book_name}}</li>
+
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- Product main img -->
+					<div class="col-md-4 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="{{i.img.url}}" alt="" >
+							</div>
+
+							
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-3 col-md-pull-5">
+<!--						<div id="product-imgs" class="slick-initialized slick-slider slick-vertical">-->
+						<div id="product-imgs" class="slick-initialized slick-slider">
+							<div class="product-preview" style="height: 400px;padding-left:30px; ">
+								<img src="{{i.img2.url}}" alt="" >
+							</div>
+
+<!--							<div class="product-preview">-->
+<!--								<img src="{% static 'images/book-1.png' %}" alt="">-->
+<!--							</div>-->
+
+							
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+
+						<div class="product-details">
+							<h2 class="product-name">{{i.book_name}}</h2>
+							<h6 class="author-name">by {{i.book_author}} (Author)</h6>
+							<div>
+								<div class="product-rating">
+
+			<i class="fa fa-star{% if context.averageReview < 0.5 %}-o{% elif context.averageReview >= 0.5 and context.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 1.5 %}-o{% elif context.averageReview >= 1.5 and context.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 2.5 %}-o{% elif context.averageReview >= 2.5 and context.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 3.5 %}-o{% elif context.averageReview >= 3.5 and context.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 4.5 %}-o{% elif context.averageReview >= 4.5 and context.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+
+
+								</div>
+<!--								<a class="review-link" href="#">{{ context.review_count }} Review(s) | Add your review</a>-->
+								<a data-toggle="tab" href="#tab3">{{ context.review_count }} Review(s) | Add your review</a>
+							</div>
+							<div>
+								<h3 class="product-price">₹{{i.book_price}}.00 <del class="product-old-price">₹{{i.book_oldprice}}.00 </del></h3>
+							</div>
+							{% if i.book_quantity > 0 %}
+							&#9830;<span class="product-available">In Stock </span>
+							<span class="sku"> {{ i.book_quantity }} Available</span><br><br>
+							{% endif %}
+
+
+
+							<p>
+								&#9830; Pay on Delivery<br><br>
+								&#9830; 10 Days Replacement Only<br><br>
+								 </p>
+
+								<p>{{i.book_desc}}</p>
+
+							<div class="add-to-cart">
+
+								 {% if i.book_quantity > 0 %}
+									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a  href="{% url 'addcart' i.book_id %}">add to cart </a></button>
+								{% else %}
+								<h4 style="color:red;">Out of Stock</h4>
+                                {% endif %}
+
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a  href="{% url 'add_wishlist' i.book_id %}">add to wishlist</a></button>
+
+							</div>
+
+						</div>
+					</div>
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
+								<li><a data-toggle="tab" href="#tab2">Description</a></li>
+
+								<li><a data-toggle="tab" href="#tab3">Reviews ({{ context.review_count }})</a></li>
+							</ul>
+							<!-- /product tab nav -->
+
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+                                           <table style="width:50%">
+											<tr>	<td>&#9830; Name</td>       <td>:{{i.book_name}}</td>		</tr>
+											<tr>	<td>&#9830; Author</td>     <td>:{{i.book_author}}</td>		</tr>
+											<tr>	<td>&#9830; Category</td>   <td>:{{i.book_category}}</td>	</tr>
+											<tr>	<td>&#9830; Year</td>       <td>:{{i.book_year}}</td>		</tr>
+											<tr>	<td>&#9830; Language</td>   <td>:{{i.book_language}}</td>	</tr>
+											<tr>	<td>&#9830; Publisher</td>  <td>:{{i.book_publisher}}</td>	</tr>
+											<tr>	<td>&#9830; Price</td>      <td>:₹{{i.book_price}}.00</td>	</tr>
+                                           </table>
+										</div>
+									</div>
+								</div>
+
+									<!-- tab2  -->
+								<div id="tab2" class="tab-pane fade in ">
+									<div class="row">
+										<div class="col-md-12">
+											 <center><h3>{{i.book_name}}</h3></center>
+								             <p>{{i.book_desc}}</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- /tab2  -->
+
+								<!-- tab3  -->
+								<div id="tab3" class="tab-pane fade in">
+									<div class="row">
+
+										<div class="col-md-3">
+											<div id="rating">
+												<div class="rating-avg">
+
+													<span>{{ context.averageReview }}</span>
+
+													<div class="rating-stars">
+
+			<i class="fa fa-star{% if context.averageReview < 0.5 %}-o{% elif context.averageReview >= 0.5 and context.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 1.5 %}-o{% elif context.averageReview >= 1.5 and context.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 2.5 %}-o{% elif context.averageReview >= 2.5 and context.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 3.5 %}-o{% elif context.averageReview >= 3.5 and context.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+			<i class="fa fa-star{% if context.averageReview < 4.5 %}-o{% elif context.averageReview >= 4.5 and context.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+
+
+													</div>
+
+												</div>
+<!--												<ul class="rating">-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div style="width: 80%;"></div>-->
+<!--														</div>-->
+
+<!--														<span class="sum">3</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div style="width: 60%;"></div>-->
+<!--														</div>-->
+<!--														<span class="sum">2</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--													<li>-->
+<!--														<div class="rating-stars">-->
+<!--															<i class="fa fa-star"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--															<i class="fa fa-star-o"></i>-->
+<!--														</div>-->
+<!--														<div class="rating-progress">-->
+<!--															<div></div>-->
+<!--														</div>-->
+<!--														<span class="sum">0</span>-->
+<!--													</li>-->
+<!--												</ul>-->
+											</div>
+										</div>
+
+
+										<!-- Reviews -->
+										<div class="col-md-6">
+											<div id="reviews">
+												<ul class="reviews">
+													 {% for review in review %}
+													<li>
+														<div class="review-heading">
+															<h5 class="name">{{review.user.first_name}}</h5>
+															<p class="date">{{review.created_at}}</p>
+															<div class="review-rating">
+																<div class="rating-star">
+		<span>
+
+									<i class="fa fa-star{% if review.rating == 0.5 %}-half-o{% elif review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.rating == 1.5 %}-half-o{% elif review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.rating == 2.5 %}-half-o{% elif review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.rating == 3.5 %}-half-o{% elif review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+									<i class="fa fa-star{% if review.rating == 4.5 %}-half-o{% elif review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+
+			</span>
+	</div>
+															</div>
+														</div>
+														<div class="review-body">
+															<p>{{review.review}}</p>
+														</div>
+													</li>
+                                                    {% endfor %}
+
+												</ul>
+<!--												<ul class="reviews-pagination">-->
+<!--													<li class="active">1</li>-->
+<!--													<li><a href="#">2</a></li>-->
+<!--													<li><a href="#">3</a></li>-->
+<!--													<li><a href="#">4</a></li>-->
+<!--													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
+<!--												</ul>-->
+											</div>
+										</div>
+										<!-- /Reviews -->
+
+										<!-- Review Form -->
+										<div class="col-md-3">
+											<div id="review-form">
+                                                <form action="{% url 'reviewss' i.book_id %}" method="POST"  class="review-form">
+													{% csrf_token %}
+													<input class="input" type="text" placeholder="HeadLine For Your Review" name="headline">
+<!--													<input class="input" type="email" placeholder="Your Email">-->
+													<textarea class="review" rows="4" cols="36" placeholder="Your Review" name="review"></textarea>
+													<br>
+                                                      <br>
+													<div class="input-rating">
+														<table>
+														<th><span>Your Rating: </span></th>
+														   <th> <div class="rate">
+																<input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+																<input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+																<input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+																<input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+																<input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+																<input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+																<input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+																<input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+																<input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+																<input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+															</div></th></table>
+<!--														<div class="stars">-->
+<!--															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>-->
+<!--															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>-->
+<!--															<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>-->
+<!--															<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>-->
+<!--															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>-->
+<!--														</div>-->
+														{% if user.is_authenticated %}
+													{% if orderproduct %}
+														<button  type="submit" value="Submit Review" class="primary-btn">Submit</button>
+													{% else %}
+														<p>You must purchase this product to post a review.</p>
+													{% endif %}
+												{% else %}
+												<p>You must be logged in to post a review.</p>
+													<button class="btn btn-sm btn-danger"><a href="{% url 'login' %}">Login now</a></button>
+												{% endif %}
+													</div>
+                                                {% include 'alert.html' %}
+								  <script>
+									  setTimeout(function(){
+										if ($('#msg').length > 0){
+										  $('#msg').remove();
+										  }
+										},2900)
+								  </script>
+<!--													<button class="primary-btn">Submit</button>-->
+												</form>
+											</div>
+
+										</div>
+										<!-- /Review Form -->
+									</div>
+								</div>
+								<!-- /tab3  -->
+							</div>
+							{% endfor %}
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+ {% if relatedbook %}
+		<!-- Section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-title text-center">
+							<h3 class="title">You Might Also Like</h3>
+						</div>
+					</div>
+					<!-- product -->
+           {% for p in relatedbook %}
+					<div class="col-md-3 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<a href="{% url 'product' p.book_id %}"><img src="{{p.img.url}}"  alt="" height="400"></a>
+								<div class="product-label">
+									<span class="sale">-30%</span>
+								</div>
+							</div>
+							<div class="product-body">
+								<p class="product-category">{{p.book_category}}</p>
+								<h3 class="product-name"><a href="#">{{p.book_name}}</a></h3>
+								<h4 class="product-price">₹{{p.book_price}}.00 <del class="product-old-price">₹{{p.book_oldprice}}.00</del></h4>
+								<div class="product-rating">
+								</div>
+								<div class="product-btns">
+									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"><a  href="{% url 'add_wishlist' p.book_id %}">add to wishlist</a></span></button>
+									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+								</div>
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><a  href="{% url 'addcart' p.book_id %}">  add to cart</a></button>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Section -->
+{% endif  %}
+
+{% endblock content %}

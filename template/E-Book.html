@@ -1,0 +1,42 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Book</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+ <body>
+      <div class="options">
+		<div class="option">
+
+			<a href="{% url 'audiobooks'  %}" class="logo">
+				<img src="{% static 'images/audbook.png' %}" alt="" height="85" width="200">
+			</a>
+<!--			<h2>Option 1</h2>-->
+			<p>The power of books, at the tip of your ears</p>
+<!--			<a href="{% url 'audiobooks'  %}">Audio Book</a>-->
+		</div>
+		<div class="option">
+			<a href="{% url 'ebooks'  %}" class="logo">
+				<img src="{% static 'images/ebook.png' %}" alt="" height="85" width="200">
+			</a>
+<!--			<h2>Option 2</h2>-->
+			<p>Reading, redefined for the modern era</p>
+<!--			<a href="{% url 'ebooks'  %}">Read Book</a>-->
+		</div>
+		<div class="option">
+			<a href="{% url 'ebooks'  %}" class="logo">
+				<img src="{% static 'images/e book.png' %}" alt="" height="85" width="200">
+			</a>
+<!--			<h2>Option 3</h2>-->
+			<p>A new way to read, with endless possibilities</p>
+<!--			<a href="{% url 'ebooks'  %}">Download Book</a>-->
+		</div>
+      </div>
+ </body>
+</html>
+{% endblock content %}

@@ -1,0 +1,324 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <br>
+                            <h4>Account</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="widget-profile-1 card">
+                                            <div class="profile border bottom">
+                                                <img class="mrg-top-30" src="{% static 'assets/images/avatars/avatar-5.png' %}" alt="" style="max-width: 100px">
+                                                <h4 class="mrg-top-20 no-mrg-btm text-semibold">{{users.first_name}} {{users.last_name}}</h4>
+                                                       <p>Delivery Boy</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card">
+                                            <div class="card-heading border bottom">
+                                                <h4 class="card-title">General Info</h4>
+                                            </div>
+                                            <form action="{% url 'add_deliveryboy'  %}" onsubmit="return validation()" method="post">
+                                             {% csrf_token %}
+                                            <div class="card-block">
+                                                <div class="row" >
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>User Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6" >
+                                                          <input type="text" name="username" value="{{users.username}}"size="30" onkeyup='fnameValidation(this)'  pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase" required >
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>First Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="text" id="ffname" name="first_name" onkeyup='fnameValidation(this)' value="{{users.first_name}}" pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase" size="30" required>
+                                                            <span id="name" style="font-size:12px;margin-top:-5px;" class="text-danger"></span>
+
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Last Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="text" name="last_name" value="{{users.last_name}}" size="30" >
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Email</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="email" value="{{users.email}}"   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="must enter a valid email address" size="30" required>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Phone Number</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" name="phonenumber" value="{{users.phonenumber}}" pattern="^[6-9][0-9]{9}$" title="must be 10 digit" size="30" required>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>House Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="hname" value="{{users.hname}}" size="30" required>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Pincode</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="pincode" value="{{users.pincode}}"  pattern="^[1-9][0-9]{5}$" title="must be valid pincode"  size="30" required>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>City</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="city" value="{{users.city}}" size="30" required>
+                                                    </div>
+                                                </div>
+                                                  <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>State</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="state" value="{{users.state}}" size="30" required>
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Country</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="country" value="{{users.country}}" size="30" required>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Status</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">
+                                                            <span class="status online mrg-top-10"></span>
+                                                            <span class="mrg-left-10">Available</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                 <div class="register-box mt-40">
+                                                   <a href="/">
+                                                       <button class="btn btn-sm btn-primary" type="submit">Add</button>
+                                                   </a>
+
+                                                 </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+ <script>
+        function validation(){
+          var fname=document.getElementById('ffname').value;
+
+          if(fname==""){
+             document.getElementById('name').innerHTML="**Please enter your firstname";
+             return false;
+          }
+          else{
+             document.getElementById('name').innerHTML="";
+          }
+
+          if((fname.length<=2)||(fname.length>20)){
+
+             document.getElementById('name').innerHTML="**User length must be between 2 and 20";
+             return false;
+
+          }
+          else{
+             document.getElementById('name').innerHTML="";
+          }
+
+
+          if(!isNaN(fname)){
+
+             document.getElementById('name').innerHTML="**Only characters are allowed";
+             return false;
+
+          }
+          else{
+             document.getElementById('name').innerHTML="";
+          }
+
+
+          var lname=document.getElementById('llname').value;
+          if(lname==""){
+             document.getElementById('names').innerHTML="**Please enter your firstname";
+             return false;
+          }
+          else{
+             document.getElementById('names').innerHTML="";
+          }
+
+          if((lname.length<=1)||(fname.length>20)){
+
+             document.getElementById('names').innerHTML="**User length must be between 1 and 20";
+             return false;
+
+          }
+          else{
+             document.getElementById('names').innerHTML="";
+          }
+
+
+          if(!isNaN(lname)){
+
+             document.getElementById('names').innerHTML="**Only characters are allowed";
+             return false;
+
+          }
+          else{
+             document.getElementById('names').innerHTML="";
+          }
+
+
+            var eml=document.getElementById('email').value;
+          if(eml==""){
+
+         document.getElementById('mail').innerHTML="**Please enter your email id";
+         return false;
+
+          }
+          else{
+             document.getElementById('mail').innerHTML="";
+          }
+
+          if(eml.indexOf('@')<=0){
+
+             document.getElementById('mail').innerHTML="**@ at invalid position";
+             return false;
+          }
+          else{
+             document.getElementById('mail').innerHTML="";
+          }
+
+
+          if((eml.charAt(eml.length-4)!='.')&&(eml.charAt(eml.length-3)!='.')){
+
+             document.getElementById('mail').innerHTML="**'.' at invalid position";
+             return false;
+          }
+          else{
+             document.getElementById('mail').innerHTML="";
+          }
+
+ var phon=document.getElementById('phone').value;
+          if(phon==""){
+
+             document.getElementById('pho').innerHTML="**Please enter your phone number";
+             return false;
+
+          }
+          else{
+             document.getElementById('pho').innerHTML="";
+          }
+          if(isNaN(phon)){
+
+             document.getElementById('pho').innerHTML="**User must enter only digits and not characters";
+             return false;
+
+          }
+          else{
+             document.getElementById('pho').innerHTML="";
+          }
+
+          if(phon.length!=10){
+
+             document.getElementById('pho').innerHTML="**Phone number must be 10 digits only";
+             return false;
+
+
+          }
+          else{
+             document.getElementById('pho').innerHTML="";
+          }
+
+
+
+      var ps1=document.getElementById('pass1').value;
+      var ps2=document.getElementById('pass2').value;
+      if(ps1==""){
+
+         document.getElementById('pa1').innerHTML="**Please enter the password";
+         return false;
+
+      }
+      else{
+         document.getElementById('pa1').innerHTML="";
+      }
+      if((ps1.length<=5)||(ps1.length>20)){
+
+         document.getElementById('pa1').innerHTML="**password length must be between 5 and 20";
+         return false;
+
+      }
+      else{
+         document.getElementById('pa1').innerHTML="";
+      }
+
+      if(ps1!=ps2){
+
+         document.getElementById('pa1').innerHTML="**passwords should be matching";
+         return false;
+      }
+      else{
+         document.getElementById('pa1').innerHTML="";
+      }
+
+
+      if(ps2==""){
+         document.getElementById('pa2').innerHTML="**Please confirm your password";
+         return false;
+      }
+      else{
+         document.getElementById('pa1').innerHTML="";
+      }
+    }
+
+
+    </script>
+
+
+{% endblock %}

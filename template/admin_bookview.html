@@ -1,0 +1,224 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <br> <br> <br>
+                            <h4>Book Details</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                 {% for book in book %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="profile border bottom">
+                                                <center><img class="mrg-top-30" src="{{book.img.url}}"  alt="" style="height:400px;width:300px;"  ></center>
+                                                <h4 class="mrg-top-20 no-mrg-btm text-semibold" style="text-align:center;">{{book.book_name}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card">
+
+                                            <form action="{% url 'bookupdate' book.book_id %}" method="post">
+                                             {% csrf_token %}
+                                            <div class="card-block">
+                                                <div class="row" >
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6" >
+                                                          <input type="text" name="book_name" value="{{book.book_name}}"  size="30" >
+                                                    </div>
+                                                </div>
+                                                 <hr>
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-md-3">-->
+<!--                                                        <p class="mrg-top-10 text-dark"> <b>Category</b></p>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-6">-->
+<!--                                                          <input type="text" name="book_category" value="{{book.book_category}}" size="30" readonly>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Category</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+
+<!--                                                          <input type="text" name="book_category" value="{{book.book_category}}" size="30" readonly>-->
+<!--                                                           <select class="form-select" name="book_category" >-->
+<!--                                                            {% for c in category %}-->
+<!--                                                               <option ></option>-->
+<!--                                                            <option value="{{ c.category_id }}">{{c.category_name}}</option>-->
+<!--                                                            {% endfor %}-->
+<!--                                                        </select>-->
+
+<!--                                                        <tr><td><input type="text" name="book_category" value="{{book.book_category}}" size="30" readonly></td>-->
+                                                           <select class="form-select" name="book_category"  style="height: 25px;" >
+                                                               <option value="{{ c.category_id }}">{{book.book_category}}</option>
+                                                                {% for c in category %}
+                                                                <option value="{{ c.category_id }}" >{{c.category_name}}</option>
+                                                                {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Quantity</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="number" name="book_quantity" min="1" value="{{book.book_quantity}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Price</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="number" name="book_price" min="1" value="{{book.book_price}}"  size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Oldprice</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="number" name="book_oldprice" min="1" value="{{book.book_oldprice}}" size="30">
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Author</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_author"    value="{{book.book_author}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Year</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_year" id="myInput" pattern="[0-9]{4}" placeholder="YYYY" value="{{book.book_year}}" size="30">
+                                                        <div id="errors"></div>
+                                                        <script>
+                                                              const myInput = document.getElementById('myInput');
+                                                              const errors = document.getElementById('errors');
+                                                              myInput.addEventListener('invalid', showErrorMessage);
+
+                                                               function validateInput() {
+                                                                        if (myInput.value.length < 4) {
+                                                                          errors.textContent = 'Input must be a valid year';
+                                                                        } else {
+                                                                          errors.textContent = '';
+                                                                        }
+                                                                      }
+                                                            </script>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Language</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_language" value="{{book.book_language}}"  pattern="^[A-Za_z][A-Za-z -]+$"  size="30">
+                                                    </div>
+                                                </div>
+                                                  <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Publisher</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_publisher" value="{{book.book_publisher}}"   size="30">
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Description</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <textarea name="book_desc" id="myTextarea" rows="5" cols="36" value="{{book.book_desc}}" pattern="^[A-Za_z][A-Za-z -]+$"  required>{{book.book_desc}}</textarea>
+                                                         <div id="error"></div>
+                                                        <script>
+                                                          const myTextarea = document.getElementById('myTextarea');
+                                                          const error = document.getElementById('error');
+                                                          myTextarea.addEventListener('input', validateTextarea);
+
+                                                          function validateTextarea() {
+                                                            if (myTextarea.value.trim().length === 0) {
+                                                              error.textContent = 'Input cannot be only spaces';
+                                                            } else {
+                                                              error.textContent = '';
+                                                            }
+                                                          }
+                                                        </script>
+<!--                                                         <input type="text" name="book_desc" value="{{book.book_desc}}" size="30">-->
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>img</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input name="img" type="text" value="{{book.img}}" size="30" readonly>
+
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>img2</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <input name="img" type="text" value="{{book.img2}}" size="30" readonly>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Status</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">
+                                                            <span class="status online mrg-top-10"></span>
+                                                            <span class="mrg-left-10">Available</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                 <div class="register-box mt-40">
+                                                   <a href="/">
+                                                                   <button class="btn btn-sm btn-primary" type="submit">  Edit</button>
+                                                                   </a>
+                                                      <a href="{% url 'deletebook' book.book_id %}"  class="btn btn-danger">Delete</a>
+                                                 </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}

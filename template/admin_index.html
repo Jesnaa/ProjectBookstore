@@ -1,0 +1,392 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>BookRak</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/PACE/themes/blue/pace-theme-minimal.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css' %}" />
+
+    <!-- page plugins css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/bower-jvectormap/jquery-jvectormap-1.2.2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/nvd3/build/nv.d3.min.css' %}" />
+    <!-- core css -->
+    <link href="{% static 'assets/css/themify-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/app.css' %}" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.4.min.js"></script>
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout" >
+            <!-- Side Nav START -->
+            <div class="side-nav" >
+                <div class="side-nav-inner" >
+                    <div class="side-nav-logo">
+                        <a href="#">
+                           <div > <img src="{% static 'images/logo2.png' %}" alt="" height="85" width="280"></div>
+<!--                            <div class="logo logo-dark" style="background-image: url('images/logo2.png')"></div>-->
+                        </a>
+                    </div>
+                    <ul class="side-nav-menu scrollable">
+                        <li class="nav-item active">
+                            <a class="" href="#">
+                                <span class="icon-holder"><i class="ti-home"></i></span>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="" href="{% url 'admin_users' %}">
+                                <span class="icon-holder"><i class="fas fa-users"></i></span>
+                                <span class="title">Users</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="" href="{% url 'admin_delboy' %}">
+                                <span class="icon-holder"><i class="fas fa-users"></i></span>
+                                <span class="title">Delivery Boy</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="ti-package"></i></span>
+                                <span class="title">Orders</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'admin_orders' %}">Orders</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_reviews' %}">Reviews</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="fas fa-book"></i></span>
+                                <span class="title">Books</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                 <li>
+                                    <a href="{% url 'admin_category' %}">Categories</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_book' %}">Books</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_ebook' %}">E-Books</a>
+                                </li>
+                            </ul>
+                        </li>
+                         <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="ti-pie-chart"></i></span>
+                                <span class="title">Analysis</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'review_analysis' %}">Review Analysis</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'rating_analysis' %}">Rating Analysis</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container" style="padding-left:300px;">
+                <!-- Header START -->
+                <div class="header navbar">
+                    <div class="header-container">
+                        <ul class="nav-left">
+                            <li>
+                                <a class="side-nav-toggle" href="javascript:void(0);">
+                                    <i class="ti-menu"></i>
+                                </a>
+                            </li>
+                            <li class="search-box">
+                                <a class="search-toggle no-pdd-right" href="javascript:void(0);">
+                                    <i class="search-icon ti-search pdd-right-10"></i>
+                                    <i class="search-icon-close ti-close pdd-right-10"></i>
+                                </a>
+                            </li>
+                            <li class="search-input">
+                                <input class="form-control" type="text" placeholder="Search...">
+                                <div class="advanced-search">
+
+                                </div>
+
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+
+									{% if user.is_authenticated %}
+                            <li class="user-profile dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="profile-img img-fluid" src="{% static 'assets/images/avatars/avatar-1.png' %}" alt="">
+                                    <div class="user-info">
+                                        <span class="name pdd-right-5">{{user.first_name}}</span>
+                                        <i class="ti-angle-down font-size-10"></i>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'admin_profile' %}">
+                                            <i class="ti-user pdd-right-10"></i>
+                                            <span>My Account</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'changepassword' %}">
+                                            <i class="ti-settings pdd-right-10"></i>
+                                            <span>Change Password</span>
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">
+                                            <i class="ti-power-off pdd-right-10"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content" >
+                    <div class="container-fluid" >
+                        <div class="row" >
+                            <div class="col col-sm-6 col-md-6 col-lg-3 ">
+                                <div class="dashboard card">
+                                    <div class="content"  style="height:140px;">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="icon-big text-center">
+                                                    <i class="text-primary fas fa-shopping-cart"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="detail text-left">
+                                                    <p>Total Orders</p>
+                                                    <span class="text-dark number">{{order}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--                                        <div class="footer">-->
+<!--                                            <hr />-->
+<!--                                            <div class="stats">-->
+<!--                                                <i class="fas fa-redo-alt"></i> Updated every 30 min-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-sm-6 col-md-6 col-lg-3">
+                                <div class="dashboard card">
+                                    <div class="content"  style="height:140px;">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="icon-big text-center">
+                                                    <i class="text-success fas fa-money-bill-alt"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="detail text-left">
+                                                    <p>Total Revenue</p>
+                                                    <span class="text-dark number">₹{{Revenue}}.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--                                        <div class="footer">-->
+<!--                                            <hr />-->
+<!--                                            <div class="stats">-->
+<!--                                                <i class="fas fa-calendar"></i> In this current Month-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-sm-6 col-md-6 col-lg-3">
+                                <div class="dashboard card">
+                                    <div class="content"  style="height:140px;">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="icon-big text-center">
+                                                    <i class="text-info fas fa-users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="detail text-left">
+                                                    <p>Customers</p>
+                                                    <span class="text-dark number"> {{users}} </span>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--                                        <div class="footer">-->
+<!--                                            <hr />-->
+<!--                                            <div class="stats">-->
+<!--                                                <i class="fas fa-stopwatch"></i> In the last 24 Hour-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="col col-sm-6 col-md-6 col-lg-3">
+                                <div class="dashboard card" >
+                                    <div class="content" style="height:140px;">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="icon-big text-center">
+                                                    <i class="text-success fas fa-book"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="detail text-left">
+                                                    <p>Total Books</p>
+                                                    <span class="text-dark number">{{book}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+<!--                                        <div class="footer">-->
+<!--                                            <hr />-->
+<!--                                            <div class="stats">-->
+<!--                                                <i class="fas fa-calendar"></i> In this current Month-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+<!--                             <div class="card">-->
+<!--                                  <div class="card-header">-->
+<!--                                    <h4 class="card-title">Most Ordered Products by Month</h4>-->
+<!--                                  </div>-->
+<!--                                  <div plot_div style="width:100%;height:100%;">-->
+
+<!--                                               {{ plot_div|safe }}-->
+
+<!--                                  </div>-->
+<!--                             </div>-->
+                            <div class="container-fluid">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <h1>Selling Analysis</h1>
+                                  {{ plot_div|safe }}
+                                </div>
+                              </div>
+                            </div>
+<!--                             <div class="container-fluid">-->
+<!--                              <div class="row">-->
+<!--                                <div class="col-md-12">-->
+<!--                                  <h1>Most Ordered Products </h1>-->
+<!--                                  {{ plot_divs|safe }}-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+
+
+                        </div>
+
+<!--                            <div class="col-lg-6 col-md-12">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-heading">-->
+<!--                                        <h4 class="card-title inline-block pdd-top-5">Latest Orders</h4>-->
+<!--                                    </div>-->
+<!--                                    <div class="pdd-horizon-20 pdd-vertical-5">-->
+<!--                                        <div class="overflow-y-auto relative scrollable" style="max-height: 381px">-->
+<!--                                            <table class="table table-lg table-hover">-->
+<!--                                                <tbody>-->
+<!--                                                    <tr>-->
+<!--                                                        <td>-->
+<!--                                                            <div class="list-info">-->
+<!--                                                                <img class="thumb-img" src="assets/images/avatars/avatar-1.png" alt="">-->
+<!--                                                                <div class="info">-->
+<!--                                                                    <span class="title">Minerva Hooper</span>-->
+<!--                                                                    <span class="sub-title">Order ID 0163</span>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            <div class="mrg-top-10">-->
+<!--                                                                <span>25 September</span>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
+<!--                                                        <td>-->
+<!--                                                            <div class="relative mrg-top-10">-->
+<!--                                                                <span class="status online"> </span>-->
+<!--                                                                <span class="pdd-left-20">Confirmed</span>-->
+<!--                                                            </div>-->
+<!--                                                        </td>-->
+<!--                                                    </tr>-->
+<!--                                                </tbody>-->
+<!--                                            </table>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+                    <div class="footer">
+
+                    </div>
+                </footer>
+                <!-- Footer END -->
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendors/PACE/pace.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'assets/js/solid.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bower-jvectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
+    <script src="{% static 'assets/js/maps/jquery-jvectormap-us-aea.js' %}"></script>
+    <script src="{% static 'assets/vendors/d3/d3.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/nvd3/build/nv.d3.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery.sparkline/index.js' %}"></script>
+    <script src="{% static 'assets/vendors/chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/dashboard.js' %}"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-1.58.4.min.js"></script>
+
+</body>
+</html>

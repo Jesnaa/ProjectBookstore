@@ -1,0 +1,102 @@
+{% extends 'dboybase.html' %}
+{% load static %}
+{% block content %}
+
+<div class="section">
+			<!-- container -->
+    <div class="container">
+            <!-- Page Container START -->
+            <div class="page-container">
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <h4>Data Table</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-overflow">
+                                            <table id="dt-opt" class="table table-lg table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Book Name</th>
+                                                        <th>Status</th>
+                                                        <th>Customer</th>
+                                                        <th>Date</th>
+                                                        <th>Amount</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for order in orders %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="list-info mrg-top-10">
+                                                                <img class="thumb-img" src="{{order.product.img.url}}" alt="">
+                                                                <div class="info">
+                                                                    <span class="title">{{order.product}}</span>
+<!--                                                                    <span class="sub-title">ID 860</span>-->
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="relative mrg-top-15">
+                                                                <span class="status online"> </span>
+                                                                <span class="pdd-left-20">{{order.status}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <span class="text-info"><b>{{order.user.first_name}}</b></span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <span>{{order.ordered_date}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <b class="text-dark font-size-16">₹{{order.product.book_price}}.00</b>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-10 text-center">
+                                                                <a href="{% url 'dboy2' order.id %}"><button class="btn btn-icon btn-flat btn-rounded dropdown-toggle">View</button> </a>
+
+                                                            </div>
+<!--                                                             <div class="mrg-top-10 text-center">-->
+<!--                                                             <form method="POST" action="{% url 'dboy2' order.id %}">-->
+<!--                                                                  {% csrf_token %}-->
+<!--                                                                 <input type="hidden" name="id" value="{{ order.id }}">-->
+<!--                                                                  <button type="submit">Accept</button>-->
+<!--                                                                </form>-->
+<!--                                                                 </div>-->
+                                                        </td>
+                                                    </tr>
+                                                     {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+       </div>
+    </div>
+
+
+{% endblock content %}

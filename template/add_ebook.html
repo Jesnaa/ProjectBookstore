@@ -1,0 +1,238 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+                    <div class="container-fluid">
+                         <br> <br> <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-heading border bottom">
+                                                <h4 class="card-title">Add e-Book</h4>
+                                            </div>
+
+                                            <form action="{% url 'add_ebook' %}" method="post" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                            <div class="card-block">
+                                                <div class="row" >
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6" >
+                                                          <input type="text" name="ebook_name" value="{{book.ebook_name}}"size="30"  pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase" >
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Category</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+<!--                                                          <input type="text" name="book_category" value="{{book.book_category}}" size="30" >-->
+                                                         <select class="form-select" name="book_category" required>
+                                                        {% for c in category %}
+                                                        <option value="{{ c.category_id }}">{{c.category_name}}</option>
+                                                        {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Author</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_author" value="{{book.book_author}}" size="30"  pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase"  required>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Year</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" id="myInput" name="book_year"  pattern="[0-9]{4}" placeholder="YYYY" value="{{book.book_year}}" size="30" required>
+                                                        <div id="errors"></div>
+
+                                                        <script>
+                                                              const myInput = document.getElementById('myInput');
+                                                              const errors = document.getElementById('errors');
+                                                              myInput.addEventListener('invalid', showErrorMessage);
+
+                                                               function validateInput() {
+                                                                        if (myInput.value.length < 4) {
+                                                                          errors.textContent = 'Input must be a valid year';
+                                                                        } else {
+                                                                          errors.textContent = '';
+                                                                        }
+                                                                      }
+                                                            </script>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Language</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_language" value="{{book.book_language}}" size="30"  pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase" required>
+                                                    </div>
+                                                </div>
+                                                  <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Publisher</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="book_publisher" value="{{book.book_publisher}}"  pattern="^[A-Za_z][A-Za-z -]+$" title="The name should begin with capital letter Followed by uppercase or lowercase" size="30" required>
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Description</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <textarea id="myTextarea" name="book_desc" rows="4" cols="36" value="{{book.book_desc}}" ></textarea>
+                                                        <div id="error"></div>
+                                                        <script>
+                                                          const myTextarea = document.getElementById('myTextarea');
+                                                          const error = document.getElementById('error');
+                                                          myTextarea.addEventListener('input', validateTextarea);
+
+                                                          function validateTextarea() {
+                                                            if (myTextarea.value.trim().length === 0) {
+                                                              error.textContent = 'Input cannot be only spaces';
+                                                            } else {
+                                                              error.textContent = '';
+                                                            }
+                                                          }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>img</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input name="img" type="file" accept=".png, .jpeg, .jpg" size="30" required><br>
+                                                        <small class="text-muted">The image must have be in jpeg/png/jpg format</small>
+
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>img2</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <input name="img2" type="file"  accept=".png, .jpeg, .jpg" size="30" required ><br>
+                                                          <small class="text-muted">The image must have be in jpeg/png/jpg format</small>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Listening Length</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="text" name="listening_length" value="{{book.listening_length}}" size="30" >
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Narrator</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="narrator" value="{{book.narrator}}"  size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>AudibleRelease Date</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" name="audibleRelease_date" value="{{book.audibleRelease_date}}" size="30" >
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book Type</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+<!--                                                        <input type="text" name="book_type" value="{{book.book_type}}" size="30"required>-->
+                                                         <select class="form-select" name="book_types" required>
+                                                        {% for c in book_type %}
+                                                        <option value="{{ c.booktype_id }}">{{c.book_types}}</option>
+                                                        {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book AudioFile </b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" name="book_audioFile" value="{{book.book_audioFile}}" size="30" >
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book Pdf </b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+<!--                                                        <input type="text" name="book_pdf" value="{{book.book_pdf}}" size="30" >-->
+                                                        <input name="book_pdf" type="file"  accept=".pdf " size="30" required ><br>
+                                                          <small class="text-muted">The File must have be in pdf format</small>
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Book Flipbook </b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" name="book_flipbook" value="{{book.book_flipbook}}" size="30" >
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Status</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">
+                                                            <span class="status online mrg-top-10"></span>
+                                                            <span class="mrg-left-10">Available</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                 <div class="register-box mt-40">
+                                                   <a href="/">
+                                                                   <button class="btn btn-sm btn-primary" type="submit">  Add</button>
+                                                                   </a>
+
+                                                 </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}

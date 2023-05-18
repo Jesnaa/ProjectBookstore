@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+Hi {{user.first_name}},
+Thank you for placing your order with BookRak. Your order has been confirmed and is being processed.
+
+Your OTP code is: {{ otp_code }}
+
+Please keep this otp and Share  to The Delivery Boy.
+Thank you for choosing BookRak. We hope to see you again soon.
+
+Best regards,
+	The BookRak team
+{{email_body.order}},{{email_body.otp_code}}
+If you think it's not you, please ignore this email.
+
+{% endautoescape %}

@@ -1,0 +1,115 @@
+{% extends 'admin_base.html' %}
+
+{% block content %}
+ <div class="main-content">
+    <div class="container-fluid">
+       <div class="page-title">
+
+        <br><br>
+<!--             <center><h2>Review Analysis of Books</h2></center>-->
+              <center><span>Sentiment Analysis of Customer Review</span></center><hr>
+            <div class="col-md-6">
+               <center> <h3><u>Positive Reviews</u></h3></center>
+             <table class="table">
+        <thead>
+          <tr>
+            <th>Book Name</th>
+            <th>Sentiment Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in positive_data %}
+            <tr>
+              <td>{{ data.book_name }}</td>
+              <td>{{ data.sentiment_scores }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+       <center> <h3><u>Negative Reviews</u></h3></center>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Book Name</th>
+            <th>Sentiment Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in negative_data %}
+            <tr>
+              <td>{{ data.book_name  }}</td>
+              <td>{{ data.sentiment_scores }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+<!-- <table class="table">-->
+<!--        <thead>-->
+<!--         <tbody>-->
+<!--          <tr>-->
+<!--              {% for plot_div in plot_divs %}-->
+<!--              <td> {{ plot_div|safe }}</td> -->
+<!--              {% endfor %}-->
+<!-- </tr>-->
+<!-- </tbody>-->
+<!--      </table>-->
+
+
+<!--<table style="width:100%">-->
+<!--    <div class="card">-->
+<!--        <div class="card-heading border bottom">-->
+<!--            <h4 class="card-title">Bar Chart</h4>-->
+<!--        </div>-->
+<!--        <tr>-->
+<!--            {% for plot_div in plot_divs %}-->
+<!--           <th> <div class="card-block" style="width:50%">-->
+
+<!--        {{ plot_div|safe }}-->
+
+<!--</div></th>-->
+
+<!--            {% endfor %}-->
+<!--        </tr>-->
+<!--    </div>-->
+<!--</table>-->
+<table style="width:100%">
+		<tr>
+			<th>Positive Reviews (Bar Chart)</th>
+			<th>Negative Reviews (Bar Chart)</th>
+
+		</tr>
+
+		<tr>
+			{% for plot_div in plot_divs %}
+			<td>
+				{{ plot_div|safe }}
+			</td>
+			{% endfor %}
+
+		</tr>
+<!--<tr>-->
+
+<!--			<th>Positive Reviews (Pie Chart)</th>-->
+<!--			<th>Negative Reviews (Pie Chart)</th>-->
+<!--		</tr>-->
+
+<!--		<tr>-->
+
+<!--			{% for plot_div in plot_divs %}-->
+<!--			<td>-->
+<!--				{{ plot_div|safe }}-->
+<!--			</td>-->
+<!--			{% endfor %}-->
+<!--		</tr>-->
+
+	</table>
+   </div>
+ </div>
+
+{% endblock %}

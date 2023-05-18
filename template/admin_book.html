@@ -1,0 +1,97 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+    <!-- Content Wrapper START -->
+                <div class="main-content" >
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <h4>Books</h4>
+                              {% include 'alert.html' %}
+<!--                                          <script>-->
+<!--                                              setTimeout(function(){-->
+<!--                                                if ($('#msg').length > 0){-->
+<!--                                                  $('#msg').remove();-->
+<!--                                                  }-->
+<!--                                                },4000)-->
+
+<!--                                          </script>-->
+                             <a href="{% url 'add_book' %}">
+                                       <button class="btn btn-sm btn-primary" > Add Book + </button>
+                                       </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-overflow">
+                                            <table id="dt-opt" class="table table-lg table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Category</th>
+                                                        <th>Author</th>
+                                                        <th>Quantity</th>
+                                                        <th>Oldprice</th>
+                                                        <th>New price</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {% for book in book %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="list-info mrg-top-10">
+                                                             <img class="thumb-img" src="{{book.img.url}}" alt="">
+                                                                <div class="info">
+                                                                    <span class="title">{{book.book_name}}</span>
+
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="relative mrg-top-15">
+                                                                <span class="pdd-left-20">{{book.book_category}}</span>
+                                                            </div>
+                                                        </td>
+                                                         <td>
+                                                            <div class="relative mrg-top-15">
+                                                                <span class="pdd-left-20">{{book.book_author}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+
+                                                                 <b>{{book.book_quantity}}</b></span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <span>{{book.book_oldprice}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <b class="text-dark font-size-16">{{book.book_price}}</b>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-10 text-center">
+                                                                <button class="btn btn-icon btn-flat btn-rounded dropdown-toggle">
+                                                                    <a href="{% url 'admin_bookview' book.book_id %}">View</a>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                  {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+{% endblock %}

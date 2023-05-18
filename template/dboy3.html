@@ -1,0 +1,66 @@
+{% extends 'dboybase.html' %}
+{% load static %}
+{% block content %}
+         <div class="section">
+			<!-- container -->
+               <div class="container">
+                <!-- Content Wrapper START -->
+                     <div class="main-content">
+                          <div class="container-fluid">
+                             <div class="page-title">
+                                 <div class="row">
+                                  <div class="col-md-12">
+                                      <div class="card">
+                                        <div class="card-block">
+                                              <div class="row relative">
+                                                    <div id="rootwizard" class="form-wizard col-md-10 ml-auto mr-auto">
+
+                                                        <div >
+                                                            <div class="row">
+                                                                <div class="col-md-6 mr-auto ml-auto">
+                                                                    <img class="img-fluid d-block mrg-horizon-auto" src="{% static 'assets/images/others/cart.png' %}" alt="">
+                                                                    <div class="text-center">
+                                                                        <h2>Delivered</h2>
+                                                                        <p>Order has been  successfully Delivered.
+                                                                            <br>
+                                                                        </p>
+                                                                        <a href="{% url 'dboy1'  %}"><button class="btn btn-info btn-inverse btn-lg">View All Orders</button></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                 </div>
+                             </div>
+                          </div>
+                     </div>
+               </div>
+         </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendors/PACE/pace.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'assets/js/solid.min.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- page plugins js -->
+    <script src="{% static 'assets/vendors/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js' %}"></script>
+
+    <!-- page js -->
+    <script src="{% static 'assets/js/forms/form-wizard.js' %}"></script>
+{% endblock content %}

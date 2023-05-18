@@ -1,0 +1,87 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Content Wrapper START -->
+                <div class="main-content">
+                                       {% include 'alert.html' %}
+                                          <script>
+                                              setTimeout(function(){
+                                                if ($('#msg').length > 0){
+                                                  $('#msg').remove();
+                                                  }
+                                                },4000)
+
+                                          </script>
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <h4>Users List</h4>
+                             <form action="{% url 'addcat' %}" method="post" class="mx-1 mx-md-4">
+                                 {% csrf_token %}
+                                 <div class="d-flex flex-row align-items-center mb-4">
+                                   <div class="form-outline flex-fill mb-0">
+                                       <table>
+                                           <th> <input type="text" id="form3Example1c" value="{{cat.category_name}}" name="cat" class="form-control" pattern="^[A-Za_z][A-Za-z -]+$" placeholder="category" />
+
+                                                </th>
+                                                <a href="/">
+                                                  <th><button class="btn btn-sm btn-primary" type="submit"> Add Category +</button></th>
+                                                </a>
+                                       </table>
+                                    </div>
+                                 </div>
+
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-overflow">
+                                            <table id="dt-opt" class="table table-lg table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Category</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                 {% for cat in cat %}
+                                                    <tr>
+                                                          <form action="{% url 'editcat' cat.category_id  %}" method="post" class="mx-1 mx-md-4">
+                                                        <td>
+
+                                                                {% csrf_token %}
+                                                            <div class="list-info mrg-top-10">
+                                                                <div class="info">
+                                                                     <input type="text" class="form-control" pattern="^[A-Za_z][A-Za-z -]+$" name="cat" value="{{cat.category_name}}" >
+
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="mrg-top-10 text-center">
+                                                                 <a href="/">
+                                                                   <button class="btn btn-sm btn-primary" type="submit">  Edit</button>
+                                                                   </a>
+                                                                <a href="{% url 'deletecat' cat.category_id %}" class="btn btn-danger">Delete</a>
+
+                                                            </div>
+                                                        </td>
+                                                         </form>
+                                                    </tr>
+                                                     {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+{% endblock %}

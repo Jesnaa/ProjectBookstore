@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>BookRak</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/PACE/themes/blue/pace-theme-minimal.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'assets/vendors/datatables/media/css/jquery.dataTables.css' %}" />
+    <!-- page plugins css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/bower-jvectormap/jquery-jvectormap-1.2.2.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendors/nvd3/build/nv.d3.min.css' %}" />
+
+    <!-- core css -->
+    <link href="{% static 'assets/css/themify-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/app.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout" >
+            <!-- Side Nav START -->
+            <div class="side-nav" >
+                <div class="side-nav-inner">
+                    <div class="side-nav-logo">
+                        <a href="#">
+                           <div > <img src="{% static 'images/logo2.png' %}" alt="" height="85" width="280"></div>
+<!--                            <div class="logo logo-dark" style="background-image: url('images/logo2.png')"></div>-->
+                        </a>
+                    </div>
+                    <ul class="side-nav-menu scrollable">
+                        <li class="nav-item active">
+                            <a class="" href="{% url 'admin_index' %}">
+                                <span class="icon-holder"><i class="ti-home"></i></span>
+                                <span class="title">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="" href="{% url 'admin_users' %}">
+                                <span class="icon-holder"><i class="fas fa-users"></i></span>
+                                <span class="title">Users</span>
+                            </a>
+                        </li>
+<!--                        <li class="nav-item ">-->
+<!--                            <a class="" href="{% url 'admin_delboy' %}">-->
+<!--                                <span class="icon-holder"><i class="fas fa-users"></i></span>-->
+<!--                                <span class="title">Delivery Boy</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="ti-package"></i></span>
+                                <span class="title">Delivery Boy</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'admin_delboy' %}">Delivery Boy</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'dboylastorder' %}">Delivery Boy's Location</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="ti-package"></i></span>
+                                <span class="title">Orders</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'admin_orders' %}">Orders</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_reviews' %}">Reviews</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="fas fa-book"></i></span>
+                                <span class="title">Books</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                 <li>
+                                    <a href="{% url 'admin_category' %}">Categories</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_book' %}">Books</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'admin_ebook' %}">E-Books</a>
+                                </li>
+                            </ul>
+                        </li>
+                         <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder"><i class="ti-pie-chart"></i></span>
+                                <span class="title">Analysis</span>
+                                <span class="arrow"><i class="ti-angle-right"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{% url 'review_analysis' %}">Review Analysis</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'rating_analysis' %}">Rating Analysis</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container" style="padding-left:300px;">
+                <!-- Header START -->
+                <div class="header navbar">
+                    <div class="header-container">
+                        <ul class="nav-left">
+                            <li>
+                                <a class="side-nav-toggle" href="javascript:void(0);">
+                                    <i class="ti-menu"></i>
+                                </a>
+                            </li>
+                            <li class="search-box">
+                                <a class="search-toggle no-pdd-right" href="javascript:void(0);">
+                                    <i class="search-icon ti-search pdd-right-10"></i>
+                                    <i class="search-icon-close ti-close pdd-right-10"></i>
+                                </a>
+                            </li>
+                            <li class="search-input">
+                                <input class="form-control" type="text" placeholder="Search...">
+                                <div class="advanced-search">
+
+                                </div>
+
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+
+									{% if user.is_authenticated %}
+                            <li class="user-profile dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="profile-img img-fluid" src="{% static 'assets/images/avatars/avatar-1.png' %}" alt="">
+                                    <div class="user-info">
+                                        <span class="name pdd-right-5">{{user.first_name}}</span>
+                                        <i class="ti-angle-down font-size-10"></i>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{% url 'admin_profile' %}">
+                                            <i class="ti-user pdd-right-10"></i>
+                                            <span>My Account</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'changepassword' %}">
+                                            <i class="ti-settings pdd-right-10"></i>
+                                            <span>Change Password</span>
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{% url 'logout' %}">
+                                            <i class="ti-power-off pdd-right-10"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Header END -->
+{% block content %} {% endblock content %}
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendors/PACE/pace.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'assets/js/solid.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bower-jvectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
+    <script src="{% static 'assets/js/maps/jquery-jvectormap-us-aea.js' %}"></script>
+    <script src="{% static 'assets/vendors/d3/d3.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/nvd3/build/nv.d3.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery.sparkline/index.js' %}"></script>
+    <script src="{% static 'assets/vendors/chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/dashboard.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA80cWOalTZWvHNwZWK9VEVVa3gYzOCKJE"></script>
+    <script src="{% static 'assets/js/maps/google-map.js' %}"></script>
+
+    <!-- page plugins js -->
+    <script src="{% static 'assets/vendors/datatables/media/js/jquery.dataTables.js' %}"></script>
+
+    <!-- page js -->
+    <script src="{% static 'assets/js/table/data-table.js' %}"></script>
+</body>
+</html>

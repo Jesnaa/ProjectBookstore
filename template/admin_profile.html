@@ -1,0 +1,119 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="section">
+			<!-- container -->
+    <div class="container">
+    <div class="app">
+        <div class="layout">
+
+
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <br>
+                            <h4>Account Setting</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="widget-profile-1 card">
+                                            <div class="profile border bottom">
+                                                <img class="mrg-top-30" src="{% static 'images/logo2.png' %}" alt="" style="max-width: 200px;height: 100px;">
+                                                <h4 class="mrg-top-20 no-mrg-btm text-semibold">{{user.first_name}}</h4>
+                                                <p>Store Owner</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card">
+                                            <div class="card-heading border bottom">
+                                                <h4 class="card-title">General Info</h4>
+                                            </div>
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" value="{{user.first_name}}">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Email</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">{{user.email}}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Phone Number</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">{{user.phonenumber}}</p>
+                                                    </div>
+                                                </div>
+
+<!--                                                <hr>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-md-3">-->
+<!--                                                        <p class="mrg-top-10 text-dark"> <b>Avatar</b></p>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-6">-->
+<!--                                                        <div>-->
+<!--                                                            <label for="img-upload" class="pointer">-->
+<!--                                                                <img src="{% static 'assets/images/avatars/avatar-1.png' %}" width="117" alt="">-->
+<!--                                                                <span class="btn btn-default display-block no-mrg-btm">Choose file</span>-->
+<!--                                                                <input class="d-none" type="file" name="uploadedimages0" multiple id="img-upload">-->
+<!--                                                            </label>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Location</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">{{user.city}}, {{user.state}}, {{user.country}}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-md-3">-->
+<!--                                                        <p class="mrg-top-10 text-dark"> <b>Status</b></p>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-6">-->
+<!--                                                        <p class="mrg-top-10">-->
+<!--                                                            <span class="status online mrg-top-10"></span>-->
+<!--                                                            <span class="mrg-left-10">Available</span>-->
+<!--                                                        </p>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+     </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,208 @@
+{% extends 'dboybase.html' %}
+{% load static %}
+{% block content %}
+
+<div class="section">
+			<!-- container -->
+    <div class="container">
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="page-title">
+                             {% include 'alert.html' %}
+                                                                              <script>
+                                                                                  setTimeout(function(){
+                                                                                    if ($('#msg').length > 0){
+                                                                                      $('#msg').remove();
+                                                                                      }
+                                                                                    },4000)
+
+                                                                              </script>
+                            <h4>Order Summary</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="row relative">
+<!--                                            <form id="shipping-form" class="width-100" method="get" action="{% url 'dboy1' %}" >-->
+                                                <div id="rootwizard" class="form-wizard col-md-10 ml-auto mr-auto">
+                                                    <ul class="nav nav-pills nav-fill">
+                                                        <li class="nav-item">
+                                                            <a href="#step1" data-toggle="tab">
+                                                                <span class="step">1</span>
+                                                                <span class="title">Order</span>
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="nav-item">
+                                                            <a href="#step2" data-toggle="tab">
+                                                                <span class="step">2</span>
+                                                                <span class="title">OTP Verification</span>
+                                                            </a>
+                                                        </li>
+<!--                                                        <li class="nav-item">-->
+<!--                                                            <a href="#step3" data-toggle="tab">-->
+<!--                                                                <span class="step">3</span>-->
+<!--                                                                <span class="title">Confirmation</span>-->
+<!--                                                            </a>-->
+<!--                                                        </li>-->
+                                                    </ul>
+                                                    <div id="bar" class="progress progress-info" style="width: 75%">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                                    </div>
+                                                    <div class="tab-content">
+                                                        <div id="step1" class="tab-pane fade ">
+                                                            <div class="row">
+
+                                                                {% for order in orders %}
+
+                                                                <div class="col-md-8">
+                                                                    <div class="pdd-horizon-30">
+                                                                        <div class="card">
+                                                                            <div class="card-block">
+                                                                                <h4 class="card-title mrg-btm-30">Summary</h4>
+                                                                                <div class="border bottom">
+                                                                                    <p>Date: <span class="pull-right">{{order.ordered_date}}</span></p>
+                                                                                    <p>Book Name: <span class="pull-right">{{order.product}}</span></p>
+                                                                                     <p>Quantity: <span class="pull-right">{{order.quantity}}</span></p>
+                                                                                    <p>Customer Name: <span class="pull-right">{{order.user.first_name}}</span></p>
+                                                                                    <p>Phone Number: <span class="pull-right">{{order.user.phonenumber}}</span></p>
+                                                                                    <p class="mrg-top-20">Address: <span class="pull-right">{{order.user.hname}}, {{order.user.city}}, {{order.user.pincode}}, {{order.user.state}}</span></p>
+                                                                                </div>
+                                                                                <p class="mrg-top-20">Total Amount: <span class="pull-right text-dark font-size-18"><b>₹{{order.payment.amount}}.00</b></span></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="pdd-horizon-30">
+                                                                        <div class="card">
+                                                                            <div class="card-block">
+                                                                                <h4 class="card-title mrg-btm-30">Call {{order.user.first_name}}  </h4>
+                                                                                    <a href="tel:+{{order.user.phonenumber}}">     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">-->
+                                                                                                                  <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>-->
+                                                                                                                 </svg></a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+<!--                                                                 <div class="col-lg-3">-->
+<!--                                                                                <div class="card-block">-->
+<!--                                                                                    <div class="row">-->
+<!--                                                                                        <div class="col-md-9">-->
+<!--                                                                                             <table class="table">-->
+<!--                                                                                                    <tr>-->
+<!--                                                                                                          <th><b>Call Now</b></th>-->
+<!--                                                                                                          <th><a href="tel:+{{order.user.phonenumber}}">-->
+<!--                                                                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">-->
+<!--                                                                                                                   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>-->
+<!--                                                                                                                 </svg>-->
+<!--                                                                                                          </a></th>-->
+<!--                                                                                                    </tr>-->
+<!--                                                                                             </table>-->
+<!--                                                                                        </div>-->
+<!--                                                                                        </div>-->
+<!--                                                                                    </div>-->
+<!--                                                                                </div>-->
+<!--                                                                 </div>-->
+
+
+
+                                                                 {% endfor %}
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="step2" class="tab-pane fade">
+                                                            <div class="row">
+                                                                <div class="col-md-8 mr-auto ml-auto">
+                                                                    <p class="font-size-18">
+                                                                        <span>Enter The OTP </span>
+                                                                    </p>
+                                                                            <div class="mrg-top-40">
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-6">
+                                                                                             <form method="post" action="{% url 'dboy2' order.id %}">
+                                                                                                {% csrf_token %}
+                                                                                                <label for="otp">Enter delivery OTP:</label>
+                                                                                                 <table>
+                                                                                                <th><input type="text" name="otp" id="otp" onkeypress="return event.charCode >= 48 &amp; event.charCode <= 57" placeholder="_ _ _ _ _ _"  class="form-control" ></th>
+                                                                                                <th>  <button class="btn btn-sm btn-primary" type="submit">Confirm</button></th>
+                                                                                                 </table>
+                                                                                            </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+<!--                                                        <div id="step3" class="tab-pane fade">-->
+<!--                                                            <div class="row">-->
+<!--                                                                <div class="col-md-6 mr-auto ml-auto">-->
+<!--                                                                    <img class="img-fluid d-block mrg-horizon-auto" src="{% static 'assets/images/others/cart.png' %}" alt="">-->
+<!--                                                                    <div class="text-center">-->
+<!--                                                                        <h2>Delivered</h2>-->
+<!--                                                                        <p>Order has been  successfully Delivered.-->
+<!--                                                                            <br>-->
+<!--                                                                        </p>-->
+<!--                                                                        <a href="{% url 'dboy1'  %}"><button class="btn btn-info btn-inverse btn-lg">View All Orders</button></a>-->
+<!--                                                                    </div>-->
+<!--                                                                </div>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+
+                                                        <div class="wizard-pager">
+                                                            <div class="">
+                                                                <button type="button" class="btn btn-default button-previous btn-rounded">Previous</button>
+                                                                <button type="button" class="btn btn-primary button-next pull-right btn-rounded">Next</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendors/PACE/pace.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js' %}"></script>
+    <script src="{% static 'assets/js/fontawesome.min.js' %}"></script>
+    <script src="{% static 'assets/js/solid.min.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- page plugins js -->
+    <script src="{% static 'assets/vendors/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js' %}"></script>
+
+    <!-- page js -->
+    <script src="{% static 'assets/js/forms/form-wizard.js' %}"></script>
+
+</body>
+
+</html>
+
+{% endblock content %}

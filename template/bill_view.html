@@ -1,0 +1,42 @@
+{% extends 'base1.html' %}
+{% block content %}
+{% load static %}
+
+ <div class="page-style-a" style="height:100%">
+        <div class="container" >
+            <div class="page-intro">
+                    <div style="height:100px;text-align: center;">
+                        <h2 style="font-family: sans-serif;color: rgb(246, 86, 12); margin-top: 130px;" >Payment success !!!!</h2><br>
+                       <div class="product-body" >
+
+                        {% if orders %}
+                           <a href="{% url 'pdf' orders.last.id %}" class="btn btn-success">
+                                                <i class="ti-printer pdd-right-5"></i>
+                                                <span>View Bill</span>
+                           </a>
+                            <a href="{% url 'pdf' orders.last.id %}" class="btn btn-success"  download class="btn btn-outline-success">
+                                                <i class="ti-printer pdd-right-5"></i>
+                                                <span>Download Bill</span>
+                           </a>
+
+                        {% endif %}
+<!--                         <button class="add-to-wishlist"><a href="{% url 'allproduct' %}">Continue Shopping</a></button>-->
+<br><br>
+                           <a href="{% url 'allproduct' %}" class="btn btn-warning" >
+
+                                                <span>Continue Shopping</span>
+                           </a>
+                          </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+	<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/slick.min.js"></script>
+		<script src="js/nouislider.min.js"></script>
+		<script src="js/jquery.zoom.min.js"></script>
+		<script src="js/main.js"></script>
+
+
+        {% endblock %}

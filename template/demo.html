@@ -1,0 +1,18 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+ {% for i in datas %}
+     <a href="{{ i.book_pdf.url }}">click here<br></a>
+{% endfor %}
+
+{% endblock content %}

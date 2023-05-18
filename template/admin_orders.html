@@ -1,0 +1,84 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <table>
+                        <th style="padding-right:20px; "><div class="page-title">
+                            <h4 >Order List</h4>
+                        </div></th>
+                        <th style="padding-left:850px;" > <div class="page-title">
+                            <a href="/order_detailslog"> <button class="btn btn-sm btn-primary" > Download Details <i class="ti-download pdd-right-5"></i> </button></a>
+
+                        </div></th>
+                            </table>
+   {% include 'alert.html' %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-overflow">
+                                            <table id="dt-opt" class="table table-lg table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Customer Name</th>
+                                                        <th>Book</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Status</th>
+                                                        <th>Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                 {% for order in order %}
+                                                    <tr>
+                                                        <td>
+                                                            <div class="list-info mrg-top-10">
+                                                                <img class="thumb-img" src="{% static 'assets/images/avatars/avatar-5.png' %}" alt="">
+                                                                <div class="info">
+                                                                    <span class="title">{{order.user.first_name}}</span>
+<!--                                                                    <span class="sub-title">{{users.id}}</span>-->
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="relative mrg-top-15">
+                                                                <span class="pdd-left-20">{{order.product.book_name}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <span class="text-info"><b>{{order.payment.amount}}</b></span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <span>{{order.quantity}}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="mrg-top-15">
+                                                                <b class="text-dark font-size-16">{{order.status}}</b>
+                                                            </div>
+                                                        </td>
+                                                         <td>
+                                                            <div class="mrg-top-15">
+                                                                <b class="text-dark font-size-16">{{order.ordered_date}}</b>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                     {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+{% endblock %}

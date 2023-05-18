@@ -1,0 +1,152 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+                    <div class="container-fluid">
+                        <div class="page-title">
+                            <br>
+                            <h4>Account</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="widget-profile-1 card">
+                                            <div class="profile border bottom">
+                                                <img class="mrg-top-30" src="{% static 'assets/images/avatars/avatar-5.png' %}" alt="" style="max-width: 100px">
+                                                <h4 class="mrg-top-20 no-mrg-btm text-semibold">{{users.first_name}} {{users.last_name}}</h4>
+                                                       <p>Delivery Boy</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card">
+                                            <div class="card-heading border bottom">
+                                                <h4 class="card-title">General Info</h4>
+                                            </div>
+                                            <form action="{% url 'admin_dprofile' users.id %}" method="post">
+                                             {% csrf_token %}
+                                            <div class="card-block">
+                                                <div class="row" style="display: none;">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>User Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6" style="width:500px;">
+                                                          <input type="text" name="username" value="{{users.username}}" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>First Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="text" name="first_name" value="{{users.first_name}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Last Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                          <input type="text" name="last_name" value="{{users.last_name}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Email</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="email" value="{{users.email}}"  size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Phone Number</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="text" name="phonenumber" value="{{users.phonenumber}}" size="30">
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>House Name</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="hname" value="{{users.hname}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Pincode</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="pincode" value="{{users.pincode}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>City</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="city" value="{{users.city}}" size="30">
+                                                    </div>
+                                                </div>
+                                                  <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>State</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="state" value="{{users.state}}" size="30">
+                                                    </div>
+                                                </div>
+                                                 <hr>
+                                                 <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Country</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                         <input type="text" name="country" value="{{users.country}}" size="30">
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p class="mrg-top-10 text-dark"> <b>Status</b></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="mrg-top-10">
+                                                            <span class="status online mrg-top-10"></span>
+                                                            <span class="mrg-left-10">Available</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                 <div class="register-box mt-40">
+                                                   <a href="/">
+                                                                   <button class="btn btn-sm btn-primary" type="submit">  Edit</button>
+                                                                   </a>
+                                                      <a href="{% url 'delete_dboy' users.id %}" class="btn btn-danger">Delete</a>
+                                                 </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block title%}
+<title>My Account || Bookrak</title>
+{% endblock %}
+
+{% block path %}
+<li class="active"><a href="{% url 'account' %}">Account</a></li>
+{% endblock %}
+{% block content %}
+<body >
+ <!-- My Account Page Start Here -->
+ <div class="my-account white-bg pb-60">
+    <div class="container">
+        <div class="account-dashboard">
+           <div class="dashboard-upper-info">
+               <div class="row no-gutters align-items-center">
+                   <div class="col-lg-3 col-md-6">
+<!--                       <div class="d-single-info">-->
+<!--                           <p class="user-name">Hello <span>{{user.first_name}}</span></p>-->
+<!--                       </div>-->
+                   </div>
+               </div>
+           </div>
+            <div class="row" >
+                <div class="col-lg-2" >
+                    <!-- Nav tabs -->
+                    <ul class="nav flex-column dashboard-list" role="tablist">
+                        <li><a class="active" data-toggle="tab" href="#dashboard">Dashboard</a></li>
+                         <li><a data-toggle="tab" href="#account-details">Account details</a></li>
+                        <li><a data-toggle="tab" href="#address">Addresses</a></li>
+                        <li><a data-toggle="tab" href="#orders">Orders</a></li>
+
+
+<!--                        <li><a  href="{% url 'changepassword' %}">Change Password</a></li>-->
+<!--                        <li><a href="login.html" href="#logout">logout</a></li>-->
+                    </ul>
+                </div>
+                <div class="col-lg-10" style="background-image: url({% static 'images/bo.jpg' %});">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard-content mt-all-40">
+                        <div id="dashboard" class="tab-pane active" style="height:70%">
+                            <center> <h3>Dashboard </h3></center>
+                            <h4 style="color:red;">Hello {{user.first_name}}</h4><br>
+                            <p style="color:green;"><b><i>You're never too old, too wacky, too wild, to pick up a book and read to a child.</i></b></p><br>
+                            <p>From your account dashboard. you can easily check & view your <a href="#">recent orders</a>, manage your <a data-toggle="tab" href="#account-details"><b>shipping and billing addresses</b></a> and <a data-toggle="tab" href="#account-details"><b>edit your password and account details.</b></a></p>
+                        </div>
+                        <div id="orders" class="tab-pane fade" style="height:100%">
+                            <center><h3>Orders</h3></center>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No:</th>
+                                            <th>Book Name</th>
+                                             <th>Quantity</th>
+                                            <th>Book Price</th>
+                                            <th>Invoice</th>
+                                            <th>Status</th>
+<!--                                            <th>Status</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{order.product.book_name}}</td>
+                                             <td>{{order.quantity}}</td>
+                                            <td>₹ {% widthratio order.product.book_price 1 order.quantity %} </td>
+                                            {% for i in orders|slice:":1" %}
+                                            <td><a href="{% url 'pdf' order.id %}" style="font-weight:bold;color:rgb(240, 16, 16);"> <i class="ti-printer pdd-right-5"></i></a></td>
+                                            {% endfor %}
+                                            <td>{{order.status}}</td>
+                                        </tr>
+
+                                    {% endfor %}
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="address" class="tab-pane" style="height:70%">
+                            <p>The following addresses will be used on the checkout page by default.</p><br>
+                             <a data-toggle="tab" href="#add_address">
+                                 <button class="btn btn-sm btn-primary" type="submit"> Add New Address + </button>
+                             </a>
+                            <hr>
+
+                            <h4 class="billing-address">Billing address</h4>
+<div class="row">
+<div class="col-md-3 col-xs-5">
+
+
+                             {% for user in address %}
+     <div class="product" >
+<div class="product-body" >
+                            <p>{{forloop.counter}} . </p>
+                             <p>{{user.first_name}} {{user.last_name}}</p>
+                             <p>{{user.phonenumber}}</p>
+                             <p>{{user.hname}} (h)</p>
+                             <p>{{user.pincode}}</p>
+                             <p>{{user.city}}</p>
+                             <p>{{user.state}}</p>
+                             <p>{{user.country}}</p>
+                            <button class="btn btn-sm btn-primary"><a data-toggle="tab" href="#account-details">Edit</a></button>
+ </div>
+            </div>
+                              {% endfor %}
+
+
+</div>
+</div>
+
+                        </div>
+                        <div id="account-details" class="tab-pane fade">
+                            <h3>Account details </h3>
+                            <div class="register-form login-form clearfix">
+                                <form action="{% url 'profile_update' %}" method="post">
+                                     {% csrf_token %}
+
+                                    <div class="form-group row">
+                                        <label for="f-name" class="col-lg-3 col-md-4 col-form-label">First Name</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="f-name" name="first_name" value="{{user.first_name}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="l-name" class="col-lg-3 col-md-4 col-form-label">Last Name</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="l-name" name="last_name" value="{{user.last_name}}">
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group row">-->
+<!--                                        <label for="username" class="col-lg-3 col-md-4 col-form-label">User Name</label>-->
+<!--                                        <div class="col-lg-6 col-md-8">-->
+<!--                                            <input type="text" class="form-control" id="username" name="username" value="{{user.username}}" >-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form-group row">
+                                        <label for="email" class="col-lg-3 col-md-4 col-form-label">Email address</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group row">-->
+<!--                                        <label for="inputpassword" class="col-lg-3 col-md-4 col-form-label">Current password</label>-->
+<!--                                        <div class="col-lg-6 col-md-8">-->
+<!--                                            <input type="password" class="form-control" id="inputpassword">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group row">-->
+<!--                                        <label for="newpassword" class="col-lg-3 col-md-4 col-form-label">New password</label>-->
+<!--                                        <div class="col-lg-6 col-md-8">-->
+<!--                                            <input type="password" class="form-control" id="newpassword">-->
+<!--                                            <button class="btn show-btn" type="button">Show</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group row">-->
+<!--                                        <label for="v-password" class="col-lg-3 col-md-4 col-form-label">Confirm password</label>-->
+<!--                                        <div class="col-lg-6 col-md-8">-->
+<!--                                            <input type="password" class="form-control" id="c-password">-->
+<!--                                            <button class="btn show-btn" type="button">Show</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-lg-3 col-md-4 col-form-label">Phone Number</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="phone" name="phonenumber" placeholder="phone" value="{{user.phonenumber}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="hname" class="col-lg-3 col-md-4 col-form-label">House Name</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="hname" name="hname" value="{{user.hname}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="pincode" class="col-lg-3 col-md-4 col-form-label">Pincode</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="pincode" name="pincode" value="{{user.pincode}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="city" class="col-lg-3 col-md-4 col-form-label">City</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="city" name="city" value="{{user.city}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="country" class="col-lg-3 col-md-4 col-form-label">Country</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="country" name="country" value="{{user.country}}" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="state" class="col-lg-3 col-md-4 col-form-label">State</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="state" name="state" value="{{user.state}}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="register-box mt-40">
+                                        <button type="submit" class="return-customer-btn f-right">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+<!--                        -->
+                         <div id="add_address" class="tab-pane fade">
+                            <h3>Account details </h3>
+                            <div class="register-form login-form clearfix">
+                                <form action="{% url 'add_address' %}" method="post">
+                                     {% csrf_token %}
+                                     <div class="form-group row">
+                                        <label for="name" class="col-lg-3 col-md-4 col-form-label">Name</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="name" name="first_name" >
+                                        </div>
+                                    </div>
+                                     <div class="form-group row">
+                                        <label for="phonenumber" class="col-lg-3 col-md-4 col-form-label">Phonenumber</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="phonenumber" name="phonenumber" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="hname" class="col-lg-3 col-md-4 col-form-label">House Name</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="hnames" name="hname" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="pincode" class="col-lg-3 col-md-4 col-form-label">Pincode</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="pincodes" name="pincode"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="city" class="col-lg-3 col-md-4 col-form-label">City</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="citys" name="city"  >
+                                        </div>
+                                    </div>
+                                     <div class="form-group row">
+                                        <label for="state" class="col-lg-3 col-md-4 col-form-label">State</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="states" name="state"  >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="country" class="col-lg-3 col-md-4 col-form-label">Country</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="text" class="form-control" id="countrys" name="country"  >
+                                        </div>
+                                    </div>
+
+
+                                    <div class="register-box mt-40">
+                                        <button type="submit" class="return-customer-btn f-right">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+<!--                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- My Account Page End Here -->
+</body>
+{% endblock %}

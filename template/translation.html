@@ -1,0 +1,52 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+<div id="breadcrumb" class="section" xmlns="http://www.w3.org/1999/html">
+			<!-- container -->
+			<div class="container">
+   <center> <h1>Translate Now</h1></center>
+                <img class="pull-right" src="{% static 'images/translate.jpg' %}"  height="350"alt="">
+  <form method="POST" id="translation-form" action="{% url 'translation' %}">
+ {% csrf_token %}
+    <div>
+      <label for="source-language">Source Language:</label>
+      <select name="source_language" id="source-language">
+        {% for lang_code, lang_name in source_language_choices %}
+          <option value="{{ lang_code }}">{{ lang_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="target-language">Target Language:</label>
+      <select name="target_language" id="target-language">
+        {% for lang_code, lang_name in target_language_choices %}
+          <option value="{{ lang_code }}">{{ lang_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="text">Text:</label>
+      <textarea name="text" id="text"  rows="10" cols="80"></textarea>
+    </div>
+      <br>
+    <button type="submit"  class="btn btn-danger" >Translate</button>
+  </form>
+
+  {% if translated_text %}
+    <div id="translated-text">
+      <p>{{ translated_text }}</p>
+    </div>
+  {% endif %}
+
+  {% if error_message %}
+    <div id="error-message">
+      <p>{{ error_message }}</p>
+    </div>
+
+  {% endif %}
+              		</div>
+			<!-- /container -->
+		</div>
+		<!-- /Section -->
+
+{% endblock %}
